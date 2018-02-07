@@ -1,0 +1,11 @@
+#draggable{
+	height: 200px;
+	width: 200px;
+	background-color:  green;
+}
+#reseisable{
+	height: 200px;
+	width: 200px;
+	background-color: red;
+	margin-top: 20px;
+}

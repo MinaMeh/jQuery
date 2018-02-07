@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>  Code Player</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<script type="text/javascript" src="index.js"></script>
+</head>
+<body>
+	<div id="wrapper">
+		<div id="menuBar">
+			<div id="logo">
+				CodePlayer
+			</div>
+			<div id="buttonDiv">
+				<button id="runButton">Run</button>
+			</div>
+			<ul id="toggle">
+			<li class="toggle selected">HTML</li> 
+			<li class="toggle">CSS</li> 
+			<li class="toggle ">JS</li> 
+			<li  class="toggle selected" style="border: none;">Result</li> 
+			</ul>
+		</div>
+		<div class="clear"></div>
+		<div class="codeContainer" id="HTMLContainer">
+			<div class="codeLabel">HTML</div>
+			<textarea id="htmlCode"> Example code</textarea>
+		</div>
+		<div class="codeContainer" id="CSSContainer">
+			<div class="codeLabel">CSS</div>
+			<textarea id="cssCode"> html {background-color: red;
+			}</textarea>
+		</div>
+		<div class="codeContainer" id="JSContainer">
+			<div class="codeLabel">JS</div>
+			<textarea id="jsCode"> alert("done");</textarea>
+		</div>
+		<div class="codeContainer" id="ResultContainer">
+			<div class="codeLabel">Result</div>
+			<iframe id="resultframe"></iframe>
+		</div>
+	</div>
+</body>
+
+
+
+<script type="text/javascript">
+var windowHeight=$(window).height();
+var menubarHeight=$("#menuBar").height();
+var codeContainerHeight= windowHeight- menubarHeight;
+$(".codeContainer").height(codeContainerHeight+"px");
+$(".toggle").click(function(){
+	$(this).toggleClass ("selected");
+	var activeDiv=$(this).html();
+	$("#"+activeDiv+"Container").toggle();
+	var showingDivs= $(".codeContainer").filter (function(){
+		return ($(this).css("display")!="none");
+	}).length;
+	var width= 100/showingDivs;
+	$(".codeContainer").css("width",width+"%");
+			
+})
+$("#runButton").click(function(){
+	$("iframe").contents().find("html").html("<style>"+ $("#cssCode").val()+"</style>"+$("#htmlCode").val());
+	document.getElementById("resultframe").contentWindow.eval($("#jsCode").val());
+})
+</script>
+
+
+</html>
